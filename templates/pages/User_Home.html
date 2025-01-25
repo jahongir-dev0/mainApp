@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Book library</title>
+    <meta name="title" content="library">
+    <meta name="description" content="Online Book library">
+
+
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0" />
+
+    <style>
+        .home-main {
+        min-height: 100vh;
+        /* background-image: linear-gradient(270deg, #0f4392, #001d3d, #001d3d); */
+        background-image: url("{%static 'images/home.wallpaper.jpg' %}");
+        background-size: cover;
+        position: relative;
+    }
+    .home-main .overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        }
+        .home-main .text {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50%;
+        padding: 50px;
+        background-color: rgb(235, 230, 230);
+        color: rgba(10, 37, 105, 0.808);
+        display: flex;
+        border-radius: 30px;
+        justify-content: center;
+        }
+        main{
+            background-color: rgb(235, 230, 230);
+            color: rgba(10, 37, 105, 0.808);          
+        }
+        .card-content {
+        overflow: auto;
+        position: absolute;
+        max-width: 330px;
+        max-height: 245px;
+        }
+        .card-content .author {
+        text-align: center;
+        font-size: larger;
+        color: black;       
+        } 
+    </style>
+</head>
+<body>
+                    
+    {# Include header file #}
+    {% include 'header.html' %}
+                    
+                    <!-- <center><h1>HOME</h1></center> -->
+
+
+
+
+
+<!-- Start home-main -->
+
+    <div class="home-main">
+        <div class="overlay"></div>
+        <div class="text">
+          <div class="content">
+            <h2>
+                Welcome to Our Library!
+
+                  <br />
+                  Start your literary adventure today.  {{ user.username }}!
+            </h2>
+            <p>
+                Explore a world of knowledge with our vast collection of books. 
+                From timeless classics to contemporary bestsellers, our library offers 
+                something for every reader. Whether you're seeking adventure, knowledge, 
+                or inspiration, our shelves are filled with stories waiting to be discovered.
+            </p>
+          </div>
+        </div>
+      </div>
+
+<!-- End home-main -->
+
+<!-- main content -->
+    <main>
+        <article>
+            <section class="section property" aria-labelledby="Property-label">
+                <div class="container">
+                    <div class="title-wrapper">
+                        <div>
+                            <h2 class="section-title headline-small">Best-selling books</h2>
+                            <p class="section-text body-large">Books in different fields are very popular on the Internet</p>
+                        </div>
+                        <a href="{% url 'userSearchBooks' %}" class="btn btn-outline">
+                            <span class="label-medium">Explore more</span>
+                            <span class="material-symbols-rounded" aria-hidden="true">arrow_outward</span>
+                        </a>
+                    </div>
+                    <div class="property-list">
+                        {% for book in books %}
+                            <div class="card">
+                                <div class="card-banner">
+                                    <figure class="img-holder" style="--width:250; --height:300;">
+                                        <img src="{{book.image.url}}" width="250" height="300" alt="{{book.title}}" class="img-cover">
+                                    </figure>
+                                    <button class="icon-btn fav-btn " aria-label="add to favorite">
+                                        <span class="material-symbols-rounded" aria-hidden="true">favorite</span>
+                                    </button>
+                                </div>
+                                <div class="card-content">
+                                    <span class="author">{{book.author}}</span>
+                                    <h3 class="title-small card-title">
+                                        <a href="{% url 'template' book.id %}" class="title-small card-title">{{ book.title }}</a>
+                                    </h3>
+                                    <address class="body-medium card-text">
+                                        {{book.details}}                                    
+                                    </address>
+                                </div>
+                            </div>
+                            {%endfor%}
+                        </div>
+            </section>
+        </article>
+    </main>
+
+
+
+
+    <!-- footer -->
+
+    {% include 'footer.html' %}
+
+
+            <script src="{% static 'js/mainUser.js' %}"></script> 
+</body>
+</html>

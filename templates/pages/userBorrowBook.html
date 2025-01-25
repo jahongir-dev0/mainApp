@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/borrowBook.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrow Books</title>
+    <style>
+    body{
+        background-image: url("{%static 'images/home.wallpaper.jpg' %}");
+    background-size: cover ;
+    background-repeat:no-repeat ;
+    font-family: "Open Sans", sans-serif;
+    background-color: #F2F5FA;
+    color: #0C0C0D;
+    font-size: 1.2rem;
+    line-height: 12px;
+    }
+    </style>
+</head>
+<body>
+<div class="body-color">
+    {% include 'header.html' %}
+    <div class="overlay"></div>
+    <div class="content-all">
+        <h2>Choose a book to borrow</h2>
+        <br>
+        <form id="borrowForm" method="post" action="{% url 'userBorrowBook' %}">
+            {% csrf_token %}
+            <div class="borrow">
+                <label for="borrow">Book name:</label>
+                <select style="border: 1px double black;" name="borrow" id="borrow" required>
+                    <option value="" disabled selected>Select</option>
+                    {% for book in books %}
+                    <option value="{{ book.id }}">{{ book.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br><br><br>
+            <div class="borrow-btn">
+                <input style="left: 50%; transform: translate(-50%); position: relative; border-radius: 8px; border: 1px solid rgb(17, 12, 61); width: fit-content;" type="submit" value="Borrow">
+            </div>
+        </form>
+        <br><br><br><br>
+        <center>
+            {% if error %}
+            <h2><font color="red">{{ error }}</font></h2>
+            <br><br><br>
+            {% endif %}
+            <h2><font color="red">--WARNING--</font></h2>
+            <br><br><br>
+            <h3>Unavailable books cannot be borrowed</h3>
+        </center>
+    </div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

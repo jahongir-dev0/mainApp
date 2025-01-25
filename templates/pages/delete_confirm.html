@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Book</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f0f0;
+            background-image: url("{% static 'images/wp9167352.jpg' %}");
+
+            color: #333;
+        }
+        header {
+            background: #333;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        header .logo img {
+            width: 150px;
+            height: auto;
+        }
+        header nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        header ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        header ul li {
+            margin: 0 15px;
+        }
+        header ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #FF2134;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        form button, form a {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        form button {
+            background-color: #FF2134;
+            color: white;
+        }
+        form a {
+            background-color: #2179FF;
+            color: white;
+        }
+        form button:hover {
+            background-color: #d91e31;
+        }
+        form a:hover {
+            background-color: #1a5fb4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="containerr">
+            <a href="#" class="logo">
+                <img src="{% static 'images/amino.png' %}" alt="Logo" />
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'adminEditBooks' %}">Books</a></li>
+                    <li><a href="{% url 'adminAddBooks' %}">Add Book</a></li>
+                    <li><a href="{% url 'login' %}">Log out</a></li>
+                </ul>
+                <div class="form">
+                    <i class="fas fa-search"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Delete Book</h1>
+            <p>Are you sure you want to delete "{{ book.title }}" by {{ book.author }}?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit">Yes, delete</button>
+                <a href="{% url 'adminEditBooks' %}">Cancel</a>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

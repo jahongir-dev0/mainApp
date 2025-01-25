@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f0f0;
+            background-image: url("{% static 'images/wp9167352.jpg' %}");
+
+            color: #333;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+        }
+        header .logo img {
+            width: 150px;
+            height: auto;
+        }
+        header nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        header ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        header ul li {
+            margin: 0 15px;
+        }
+        header ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2179FF;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        form input, form select, form textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #2179FF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #1a5fb4;
+        }
+        .current-image {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .current-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="containerr">
+            <a href="#" class="logo">
+                <img src="{% static 'images/amino.png' %}" alt="Logo" />
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'adminEditBooks' %}">Books</a></li>
+                    <li><a href="{% url 'adminAddBooks' %}">Add Book</a></li>
+                    <li><a href="{% url 'login' %}">Log out</a></li>
+                </ul>
+                <div class="form">
+                    <i class="fas fa-search"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Edit Book</h1>
+            <div class="current-image">
+                <h3>Current Book Image</h3>
+                {% if book.image %}
+                    <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save changes</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
