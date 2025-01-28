@@ -24,10 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x7c3*_@!f7u57_k%e3ww%o53wp7%p-z$+h5l-u_u!2we8&@^f3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["https://mainapp-gvnc.onrender.com/"]
-
+ALLOWED_HOSTS = [
+    'mainapp-gvnc.onrender.com',  # Render domeningiz
+    '127.0.0.1',                  # Localhost (mahalliy ishlatish uchun)
+    'localhost',                  # Localhost (mahalliy ishlatish uchun)
+]
 
 # Application definition
 
